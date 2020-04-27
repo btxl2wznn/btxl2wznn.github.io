@@ -15,13 +15,15 @@
 <meta property="og:site_name" content="TQ的博客">
 <meta property="og:description" content="vue项目学习 前言学习codeWhy老师的vue视频教程，该项目为教程中的项目案例，本文对该项目进行总结和复习vue知识">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/assets/img/tabbar.png">
 <meta property="og:image" content="http://yoursite.com/assets/img/vue%E4%BB%BF%E8%98%91%E8%8F%87%E8%A1%97%E9%A1%B9%E7%9B%AE.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/%E8%AF%A6%E6%83%85%E9%A1%B5.png">
 <meta property="article:published_time" content="2020-04-26T12:33:10.000Z">
-<meta property="article:modified_time" content="2020-04-27T15:48:48.968Z">
+<meta property="article:modified_time" content="2020-04-27T15:52:07.254Z">
 <meta property="article:author" content="唐琪">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/assets/img/vue%E4%BB%BF%E8%98%91%E8%8F%87%E8%A1%97%E9%A1%B9%E7%9B%AE.png">
+<meta name="twitter:image" content="http://yoursite.com/assets/img/tabbar.png">
   
     <link rel="alternative" href="/atom.xml" title="TQ的博客" type="application/atom+xml">
   
@@ -218,14 +220,10 @@
 </ul>
 <p>主要代码</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="comment">//为降低各组件对axios插件的依赖，如果把每一个组件中都些了axios的使用，若有一天axios出现了问题，那么将很困难重构</span></span><br><span class="line"><span class="comment">//所以将axios的调用单独抽离出来，便于后期维护</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">config</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">		baseURL: <span class="string">'http://123.207.32.32:8000/api/h8'</span>,</span><br><span class="line">    <span class="comment">//新接口</span></span><br><span class="line">    <span class="comment">//baseURL: 'http://106.54.54.237:8000',</span></span><br><span class="line">    <span class="comment">//baseURL: 'http://106.54.54.237:8000/api/hy',</span></span><br><span class="line">		timeout: <span class="number">10000</span></span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">//请求拦截器</span></span><br><span class="line">	instance.interceptors.request.use( <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="comment">//拦截的目的</span></span><br><span class="line">		<span class="comment">//1.config中的一些信息不符合服务器的要求或者修改信息</span></span><br><span class="line">		<span class="comment">//2.每次发送网络请求时，希望在页面出现网络请求图标</span></span><br><span class="line">		<span class="comment">//3.某些网络请求(如登录（token）),需要加上特殊信息</span></span><br><span class="line">		<span class="comment">//拦截后需要返回</span></span><br><span class="line">		<span class="keyword">return</span> config</span><br><span class="line">	&#125;, err =&gt; &#123;</span><br><span class="line">		<span class="comment">//拦截失败是返回这个方法</span></span><br><span class="line">		<span class="built_in">console</span>.log(err)</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">//响应拦截</span></span><br><span class="line">	instance.interceptors.response.use( <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="comment">//拦截处理后也需要返回config</span></span><br><span class="line">		<span class="keyword">return</span> config</span><br><span class="line">	&#125;, err =&gt; &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(err)</span><br><span class="line">	&#125;</span><br><span class="line">	)</span><br><span class="line">	<span class="comment">//因axios本身也是Promise所以可以直接返回</span></span><br><span class="line">	<span class="comment">//在调用处再写then和catch语句</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> instance(config)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="tabbar"><a href="#tabbar" class="headerlink" title="tabbar"></a>tabbar</h2><div  align="center">
-![tabbar](/assets/img/tabbar.png "tabbar")
-</div>
-tabbar用于点击切换页面（主页面次页面的来回切换），基于vue-router（路由）
-**Vue-router简单介绍**
->Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：嵌套的路由/视图表；模块化的、基于组件的路由配置；路由参数、查询、通配符；基于 Vue.js 过渡系统的视图过渡效果；细粒度的导航控制；带有自动激活的 CSS class 的链接；HTML5 历史模式或 hash 模式，在 IE9 中自动降级；自定义的滚动条行为。
-由 前端 来控制页面的跳转（但其实是个单页面），根据不同的 url 地址展示不同的内容和页面。由此也意味着前后端分离，前端渲染界面，后端处理数据，数据通过接口请求
-
+<h2 id="tabbar"><a href="#tabbar" class="headerlink" title="tabbar"></a>tabbar</h2><p><img src="/assets/img/tabbar.png" alt="tabbar" title="tabbar"><br>tabbar用于点击切换页面（主页面次页面的来回切换），基于vue-router（路由）<br><strong>Vue-router简单介绍</strong></p>
+<blockquote>
+<p>Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：嵌套的路由/视图表；模块化的、基于组件的路由配置；路由参数、查询、通配符；基于 Vue.js 过渡系统的视图过渡效果；细粒度的导航控制；带有自动激活的 CSS class 的链接；HTML5 历史模式或 hash 模式，在 IE9 中自动降级；自定义的滚动条行为。<br>由 前端 来控制页面的跳转（但其实是个单页面），根据不同的 url 地址展示不同的内容和页面。由此也意味着前后端分离，前端渲染界面，后端处理数据，数据通过接口请求</p>
+</blockquote>
 <p><strong>Vue-router 核心</strong><br>路由跳转的方式</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=<span class="string">' '</span>&gt;&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp">this.$router.push(&#123;path:' '&#125;)</span></span><br></pre></td></tr></table></figure>
 <p>路由的匹配</p>
@@ -233,27 +231,17 @@ tabbar用于点击切换页面（主页面次页面的来回切换），基于vu
 <h2 id="主页面"><a href="#主页面" class="headerlink" title="主页面"></a>主页面</h2><h3 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h3><div  align="center">
 <img src="/assets/img/vue仿蘑菇街项目.png " width = 200 height =450  />
 </div>
-### 大致内容
-通过axios获取到数据然后将数据中的内容展示到首页内
-### 细节处理
-**better-scroll**
-为便于移动端的使用，使用浏览器自带的滚动功能是无法满足的，使用需要调用better-scroll，详情见[better-scroll](http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/#better-scroll%20%E6%98%AF%E4%BB%80%E4%B9%88 "better-scroll")
-**返回顶部功能**
-页面下拉到一定位置，弹出返回顶部按钮
+
+<h3 id="大致内容"><a href="#大致内容" class="headerlink" title="大致内容"></a>大致内容</h3><p>通过axios获取到数据然后将数据中的内容展示到首页内</p>
+<h3 id="细节处理"><a href="#细节处理" class="headerlink" title="细节处理"></a>细节处理</h3><p><strong>better-scroll</strong><br>为便于移动端的使用，使用浏览器自带的滚动功能是无法满足的，使用需要调用better-scroll，详情见<a href="http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/#better-scroll%20%E6%98%AF%E4%BB%80%E4%B9%88" target="_blank" rel="noopener" title="better-scroll">better-scroll</a><br><strong>返回顶部功能</strong><br>页面下拉到一定位置，弹出返回顶部按钮</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> contScroll(position) &#123;</span><br><span class="line">   <span class="comment">//1.判断Backtop是否显示</span></span><br><span class="line">   <span class="keyword">this</span>.isshow = (-position.y &gt; <span class="number">600</span>)</span><br><span class="line">   <span class="comment">//2.判断tabcontrol是否吸顶</span></span><br><span class="line">   <span class="keyword">this</span>.istabshow = (-position.y &gt; <span class="keyword">this</span>.tabOffsetTop)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-**上拉加载更多商品数据**
-通过better-scroll自带的pullUpLoad属性监听上拉事件
-### 主要问题解决
-**refresh**
-better-scroll的可滚动高度是由content的高度来确定的，在将商品信息渲染到界面上时因为图片加载慢，所以可能出现图片还没有加载好的时候content就已经确定了高度导致不能滚动的bug，为解决问题需要在每次图片加载结束（监听imgload事件）的时候在created时候将better-scroll高度重新刷新一次（调用scroll.infresh方法），为提高性能可设定debounce方法延迟调用
+<p><strong>上拉加载更多商品数据</strong><br>通过better-scroll自带的pullUpLoad属性监听上拉事件</p>
+<h3 id="主要问题解决"><a href="#主要问题解决" class="headerlink" title="主要问题解决"></a>主要问题解决</h3><p><strong>refresh</strong><br>better-scroll的可滚动高度是由content的高度来确定的，在将商品信息渲染到界面上时因为图片加载慢，所以可能出现图片还没有加载好的时候content就已经确定了高度导致不能滚动的bug，为解决问题需要在每次图片加载结束（监听imgload事件）的时候在created时候将better-scroll高度重新刷新一次（调用scroll.infresh方法），为提高性能可设定debounce方法延迟调用</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//防抖动bug,减少refresh的调用</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>  <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(timer) clearTimeout(timer)</span><br><span class="line">  timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-因需要监听imgload事件，中间需要越过几个组件是非父子组件关系，所以使用this.$bus.on来监听，this.$bus.$emit来发出。
-**从详情界面返回的时候页面位置不变**
-因为从详情界面返回的时候是通过this.$router.back()返回上一个url，keep-alive不会保留首页的位置，首页会重新自己刷新一次，所以在离开首页的时候（deactivated）保留当前首页的位置（saveY），返回首页的时候（activated）再回到saveY的位置
+<p>因需要监听imgload事件，中间需要越过几个组件是非父子组件关系，所以使用this.$bus.on来监听，this.$bus.$emit来发出。<br><strong>从详情界面返回的时候页面位置不变</strong><br>因为从详情界面返回的时候是通过this.$router.back()返回上一个url，keep-alive不会保留首页的位置，首页会重新自己刷新一次，所以在离开首页的时候（deactivated）保留当前首页的位置（saveY），返回首页的时候（activated）再回到saveY的位置</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">activated() &#123;</span><br><span class="line">  <span class="comment">//再次进来home的时候引用保存的y值</span></span><br><span class="line">  <span class="keyword">this</span>.$refs.scroll.refresh()</span><br><span class="line">  <span class="keyword">this</span>.$refs.scroll.scroll.scrollTo(<span class="number">0</span>, <span class="keyword">this</span>.saveY, <span class="number">0</span>)</span><br><span class="line">&#125;,</span><br><span class="line">deactivated() &#123;</span><br><span class="line">  <span class="comment">//1.保存y值</span></span><br><span class="line">  <span class="keyword">this</span>.saveY = <span class="keyword">this</span>.$refs.scroll.scroll.y</span><br><span class="line">  <span class="comment">//2.取消全局事件的监听</span></span><br><span class="line">  <span class="keyword">this</span>.$bus.$off(<span class="string">'imgLoad'</span>, <span class="keyword">this</span>.ItmeImgListener)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-## 详情页
-**效果图**
-![详情页](/assets/img/详情页.png "详情页")
+<h2 id="详情页"><a href="#详情页" class="headerlink" title="详情页"></a>详情页</h2><p><strong>效果图</strong><br><img src="/assets/img/%E8%AF%A6%E6%83%85%E9%A1%B5.png" alt="详情页" title="详情页"></p>
+
       
 
       
