@@ -8,18 +8,21 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>vue仿蘑菇街app项目 | TQ的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="vue项目学习 前言学习codeWhy老师的vue视频教程，该项目为教程中的项目案例，本文对该项目进行总结和复习vue知识">
+  <meta name="description" content="vue项目学习 前言学习codeWhy老师的vue视频教程，该项目为教程中的项目案例，本文对该项目进行简单总结和复习vue知识">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue仿蘑菇街app项目">
 <meta property="og:url" content="http://yoursite.com/2020/04/26/vue%E4%BB%BF%E8%98%91%E8%8F%87%E8%A1%97app%E9%A1%B9%E7%9B%AE/index.html">
 <meta property="og:site_name" content="TQ的博客">
-<meta property="og:description" content="vue项目学习 前言学习codeWhy老师的vue视频教程，该项目为教程中的项目案例，本文对该项目进行总结和复习vue知识">
+<meta property="og:description" content="vue项目学习 前言学习codeWhy老师的vue视频教程，该项目为教程中的项目案例，本文对该项目进行简单总结和复习vue知识">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/assets/img/tabbar.png">
 <meta property="og:image" content="http://yoursite.com/assets/img/vue%E4%BB%BF%E8%98%91%E8%8F%87%E8%A1%97%E9%A1%B9%E7%9B%AE.png">
 <meta property="og:image" content="http://yoursite.com/assets/img/%E8%AF%A6%E6%83%85%E9%A1%B5.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/toast.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/cart.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/fight.png">
 <meta property="article:published_time" content="2020-04-26T12:33:10.000Z">
-<meta property="article:modified_time" content="2020-04-27T15:55:26.636Z">
+<meta property="article:modified_time" content="2020-04-28T15:12:15.684Z">
 <meta property="article:author" content="唐琪">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
@@ -182,7 +185,7 @@
 </p></center>
       
         <p><strong>vue项目学习</strong></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学习codeWhy老师的<a href="https://www.bilibili.com/video/BV15741177Eh?p=230" target="_blank" rel="noopener" title="vue视频教程">vue视频教程</a>，该项目为教程中的项目案例，本文对该项目进行总结和复习vue知识</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学习codeWhy老师的<a href="https://www.bilibili.com/video/BV15741177Eh?p=230" target="_blank" rel="noopener" title="vue视频教程">vue视频教程</a>，该项目为教程中的项目案例，本文对该项目进行简单总结和复习vue知识</p>
 <a id="more"></a>
 
 <h2 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h2><p>该项目是基于vue-cli4，所以前期准备是了解vue-cli和其中的wabpack知识</p>
@@ -240,9 +243,46 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//防抖动bug,减少refresh的调用</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>  <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(timer) clearTimeout(timer)</span><br><span class="line">  timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>因需要监听imgload事件，中间需要越过几个组件是非父子组件关系，所以使用this.$bus.on来监听，this.$bus.$emit来发出。<br><strong>从详情界面返回的时候页面位置不变</strong><br>因为从详情界面返回的时候是通过this.$router.back()返回上一个url，keep-alive不会保留首页的位置，首页会重新自己刷新一次，所以在离开首页的时候（deactivated）保留当前首页的位置（saveY），返回首页的时候（activated）再回到saveY的位置</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">activated() &#123;</span><br><span class="line">  <span class="comment">//再次进来home的时候引用保存的y值</span></span><br><span class="line">  <span class="keyword">this</span>.$refs.scroll.refresh()</span><br><span class="line">  <span class="keyword">this</span>.$refs.scroll.scroll.scrollTo(<span class="number">0</span>, <span class="keyword">this</span>.saveY, <span class="number">0</span>)</span><br><span class="line">&#125;,</span><br><span class="line">deactivated() &#123;</span><br><span class="line">  <span class="comment">//1.保存y值</span></span><br><span class="line">  <span class="keyword">this</span>.saveY = <span class="keyword">this</span>.$refs.scroll.scroll.y</span><br><span class="line">  <span class="comment">//2.取消全局事件的监听</span></span><br><span class="line">  <span class="keyword">this</span>.$bus.$off(<span class="string">'imgLoad'</span>, <span class="keyword">this</span>.ItmeImgListener)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="详情页"><a href="#详情页" class="headerlink" title="详情页"></a>详情页</h2><p><strong>效果图</strong></p>
-<div  align="center">
+<h2 id="详情页"><a href="#详情页" class="headerlink" title="详情页"></a>详情页</h2><h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><div  align="center">
 <img src="/assets/img/详情页.png " width = 250 height =450  />
+</div >
+
+<h3 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h3><p>在详情页面展示商品的具体信息，底部tabbar添加购物车、收藏等功能</p>
+<h3 id="细节处理-1"><a href="#细节处理-1" class="headerlink" title="细节处理"></a>细节处理</h3><p><strong>NavBar中的内容跟滚动位置实时切换和可点击切换</strong><br>先解决NavBar中的内容块（商品、详情、评价、推荐）的具体高度，因不同的商品携带的信息不同导致每块内容的分区并不是固定高度的，所以需要动态获取到每块分区的高度，选择在created中获取每个区块的高度,因图片加载需要时间故做了仿抖动bug</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.getThemeTopY = debounce(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.themeTops = []</span><br><span class="line">    <span class="keyword">this</span>.themeTops.push(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">this</span>.themeTops.push(<span class="keyword">this</span>.$refs.param.$el.offsetTop)</span><br><span class="line">    <span class="keyword">this</span>.themeTops.push(<span class="keyword">this</span>.$refs.rate.$el.offsetTop)</span><br><span class="line">    <span class="keyword">this</span>.themeTops.push(<span class="keyword">this</span>.$refs.recommend.$el.offsetTop)</span><br><span class="line">    <span class="keyword">this</span>.themeTops.push(<span class="built_in">Number</span>.MAX_VALUE)</span><br><span class="line">&#125;,<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<p>得到每个内容块的具体高度后，监听-position.y的变化实时改变NavBar，监听NavBar点击事件调用scrollTo方法实现页面自动滚动到对应位置<br><strong>Toast</strong><br>点击加入购物车后弹出添加成功提示框</p>
+<div  align="center">
+<img src="/assets/img/toast.png"/>
+</div >
+
+<p>为便于调用采用<strong><em>自定义全局组件（自定义插件）</em></strong>的方式<br>自定义组件方法，创建index.js和toast.vue文件，在index.js文件中写关于toast.vue的install方法，配置成插件，在toast.vue文件中写toast界面实现，然后在main.js中安装组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Toast <span class="keyword">from</span> <span class="string">'components/common/toast'</span></span><br><span class="line">Vue.use(Toast)</span><br></pre></td></tr></table></figure>
+<p>也可采用调用vue组件库的方法，可选择vant,详情<a href="https://youzan.github.io/vant/#/zh-CN/home" target="_blank" rel="noopener" title="vant">vant</a><br><strong>vuex</strong><br>为实现加入购物车的功能那必然需要用到vuex，详情<a href="https://vuex.vuejs.org/" target="_blank" rel="noopener" title="vuex">vuex</a></p>
+<blockquote>
+<p>Vuex 是一个专为 Vue.js应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。<br>可看成用于管理组件之间通信的一个插件</p>
+</blockquote>
+<p>vuex有五个核心概念，state, getters, mutations, actions, modules</p>
+<blockquote>
+<p>state =&gt; 基本数据<br>getters =&gt; 从基本数据派生的数据<br>mutations =&gt; 提交更改数据的方法，同步！<br>actions =&gt; 像一个装饰器，包裹mutations，使之可以异步。<br>modules =&gt; 模块化Vuex</p>
+</blockquote>
+<p>将商品的数据存放在store中便于调用，调用vuex <strong><em>mapActions</em></strong>方法将数据存储到state中<br><strong>mixin</strong><br>为提高vue组件的可复用性，如该项目中反复需调用的refresh方法，采用mixin（混入），详情<a href="https://cn.vuejs.org/v2/guide/mixins.html" target="_blank" rel="noopener" title="mixin">mixin</a></p>
+<blockquote>
+<p>混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。</p>
+</blockquote>
+<p>例子(来自官网)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个混入对象</span></span><br><span class="line"><span class="keyword">var</span> myMixin = &#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.hello()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    hello: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'hello from mixin!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个使用混入对象的组件</span></span><br><span class="line"><span class="keyword">var</span> Component = Vue.extend(&#123;</span><br><span class="line">  mixins: [myMixin]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> component = <span class="keyword">new</span> Component() <span class="comment">// =&gt; "hello from mixin!"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p><strong>商品添加问题</strong><br>同一个商品的反复添加不应该是在购物车中多添加一个商品格而是添加当前商品的数量<br>解决方法：在添加商品进入state时进行判断已有则对已有的商品数量加一（count++），无则添加新商品进入，因需要进行逻辑判断，建议写在actions内，如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  addCart(context, payload) &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span> (<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//1.查找之前数组中是否有该商品</span></span><br><span class="line">      <span class="keyword">let</span> oldProduct = context.state.cartList.find(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> item.iid == payload.iid</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="comment">//2.判断product</span></span><br><span class="line">      <span class="keyword">if</span>(oldProduct) &#123;<span class="comment">//添加新的商品</span></span><br><span class="line">        context.commit(types.INCREMENT_COUNT, oldProduct)</span><br><span class="line">        resolve(<span class="string">'添加新的商品'</span>)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;<span class="comment">//当前数量加一</span></span><br><span class="line">        payload.count = <span class="number">1</span></span><br><span class="line">        context.commit(types.ADD_TO_CART, payload)</span><br><span class="line">        resolve(<span class="string">'当前商品数量加一'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="购物车"><a href="#购物车" class="headerlink" title="购物车"></a>购物车</h2><h3 id="效果图-1"><a href="#效果图-1" class="headerlink" title="效果图"></a>效果图</h3><div  align="center">
+<img src="/assets/img/cart.png " width = 250 height =450  />
+</div >
+
+<h3 id="主要内容-1"><a href="#主要内容-1" class="headerlink" title="主要内容"></a>主要内容</h3><p>将state中的商品信息展现出来供用户管理</p>
+<h3 id="细节处理-2"><a href="#细节处理-2" class="headerlink" title="细节处理"></a>细节处理</h3><p><strong>商品数增减和删除</strong><br>获取到state中的商品信息（CartList），监听增删减触发对应事件直接对cartList中的数据进行处理即可<br><strong>是否选中商品</strong><br>在state的数据中添加checked属性默认true，根据checked的值来选择性的统计总价</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本项目具体实现了首页、购物车、详情页、我的界面，是vue学习的一次实践，从中学到了很多比如如何创建项目、项目流程、文件管理、git托管，<br>对制作项目有了一定的了解，也是对vue知识的一次全面复习，做完这个项目给了我继续学习下去的基础，不断努力，一点点进步！！！</p>
+<div  align="center">
+<img src="/assets/img/fight.png " width = 250 height =250  />
 </div >
       
 
