@@ -6,20 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>湖科大失物招领项目 | TQ的博客</title>
+  <title>湖科大失物招领项目总结 | TQ的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="湖科大失物招领 前言独立开发的全栈项目，实现失物招领系统的用户端（移动端）和管理端（PC），在线预览dlment，">
+  <meta name="description" content="湖科大失物招领 前言独立开发的全栈项目，实现失物招领系统的用户端（移动端）、管理端（PC）和服务端（Nodejs），在线预览dlment">
 <meta property="og:type" content="article">
-<meta property="og:title" content="湖科大失物招领项目">
+<meta property="og:title" content="湖科大失物招领项目总结">
 <meta property="og:url" content="http://yoursite.com/2020/09/05/%E6%B9%96%E7%A7%91%E5%A4%A7%E5%A4%B1%E7%89%A9%E6%8B%9B%E9%A2%86%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="TQ的博客">
-<meta property="og:description" content="湖科大失物招领 前言独立开发的全栈项目，实现失物招领系统的用户端（移动端）和管理端（PC），在线预览dlment，">
+<meta property="og:description" content="湖科大失物招领 前言独立开发的全栈项目，实现失物招领系统的用户端（移动端）、管理端（PC）和服务端（Nodejs），在线预览dlment">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/assets/img/dadmin.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/%E6%B7%BB%E5%8A%A0%E6%8C%82%E5%A4%B1.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/%E6%8C%82%E5%A4%B1%E5%88%97%E8%A1%A8.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/map.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/map.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/%E6%A0%8F.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/d%E6%88%91%E7%9A%84.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/ddetail.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/%E7%89%A9%E5%93%81%E4%BF%A1%E6%81%AF.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/fight.jpg">
 <meta property="article:published_time" content="2020-09-05T12:33:10.000Z">
-<meta property="article:modified_time" content="2020-09-05T08:28:38.143Z">
+<meta property="article:modified_time" content="2020-09-06T07:14:44.072Z">
 <meta property="article:author" content="唐琪">
-<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="Vue Node.js Mysql">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/assets/img/dadmin.png">
   
     <link rel="alternative" href="/atom.xml" title="TQ的博客" type="application/atom+xml">
   
@@ -172,14 +183,89 @@
 		<center><p>
   
     <h1 class="article-title_code_ant" itemprop="name">
-      湖科大失物招领项目
+      湖科大失物招领项目总结
     </h1>
   
 </p></center>
       
         <p><strong>湖科大失物招领</strong></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>独立开发的全栈项目，实现失物招领系统的用户端（移动端）和管理端（PC），在线预览<a href="http://47.97.249.152/" target="_blank" rel="noopener">dlment</a>，</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>独立开发的全栈项目，实现失物招领系统的用户端（移动端）、管理端（PC）和服务端（Nodejs），在线预览<a href="http://47.97.249.152/" target="_blank" rel="noopener">dlment</a></p>
 <a id="more"></a>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p>Vue+Nodejs(express)+Mysql</p>
+<h2 id="页面实现"><a href="#页面实现" class="headerlink" title="页面实现"></a>页面实现</h2><p>页面分为后台管理页面与用户使用页面</p>
+<h4 id="后台管理"><a href="#后台管理" class="headerlink" title="后台管理"></a>后台管理</h4><p>主体使用Elment-Ui实现，为管理员提供区域管理、物品管理和用户管理<br><em>效果图</em></p>
+<div  align="center">
+<img src="/assets/img/dadmin.png " width = 450 height =250  />
+</div >
+<div  align="center">
+<img src="/assets/img/添加挂失.png " width = 450 height =250  />
+</div >
+<div  align="center">
+<img src="/assets/img/挂失列表.png " width = 450 height =250  />
+</div >
+
+<h4 id="用户页面"><a href="#用户页面" class="headerlink" title="用户页面"></a>用户页面</h4><p>只设计了移动端的用户页面，主体框架都为自己编写，使用better-scroll改善移动端滑动效果，vue-awesome-swiper实现轮播区域的滑动，诸如的input许多控件采用了Vant，提高了用户的使用感；</p>
+<p>为使项目更具可用性，将物品信息绑定地点，在湖科大的地图上标明该地点是否含有失物招领物品，用户可直接点击图片地点进行查看，也可在搜索栏进行搜索。<br><em>效果图</em></p>
+<div  align="center">
+<img src="/assets/img/map.png " width = 250 height =450  />
+</div >
+**优化**
+为避免数据反复请求，使用keep-live添加页面缓存，对不需要缓存的页面加入meta：{keepAlive: false,}如何在页面跳转的时候利用Vue的路由钩子beforEach进行判定
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;keep-alive&gt;</span><br><span class="line">	&lt;router-view :key=<span class="string">"$route.path"</span> v-<span class="keyword">if</span>=<span class="string">"this.$route.meta.keepAlive"</span>&gt;&lt;<span class="regexp">/router-view&gt;</span></span><br><span class="line"><span class="regexp">	&lt;!--这里是会被缓存的组件--&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>keep-alive&gt;</span><br><span class="line">&lt;router-view :key=<span class="string">"$route.path"</span> v-<span class="keyword">if</span>=<span class="string">"!this.$route.meta.keepAlive"</span>&gt;&lt;<span class="regexp">/router-view&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">router.beforeEach((to, from, next) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  if (from.name == "addLost" || from.name == "addFound") &#123;</span></span><br><span class="line"><span class="regexp">    to.meta.keepAlive = false;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">  next();</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
+设置页面拦截，未登陆的用户无法进入物品信息页面和使用挂失招领功能，已登录的用户将用户信息token存入localStorage中，验证localStorage是否有token信息反映是否登录
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!to.meta.isPublic &amp;&amp; !localStorage.usertoken) &#123;</span><br><span class="line">    Vue.prototype.$toast(<span class="string">"请先登录"</span>);</span><br><span class="line">    <span class="keyword">return</span> next(<span class="string">"/login"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+设置下拉刷新功能，页面设置keep-live将数据缓存再次进入页面的时候不会发出数据请求，为刷新页面信息提供下拉刷新。监听better-scroll的下拉刷新事件并抛出事件由调用的页面进行处理
+*效果图*
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">loadmore() &#123;</span><br><span class="line">      <span class="keyword">this</span>.fetch();</span><br><span class="line">      <span class="keyword">this</span>.isPullingDown = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">this</span>.loading = <span class="literal">true</span>;</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.isFinish = <span class="literal">true</span>;</span><br><span class="line">      &#125;, <span class="number">700</span>);</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs.scroll.scroll.finishPullDown();</span><br><span class="line">      &#125;, <span class="number">1500</span>);</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.loading = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">this</span>.isFinish = <span class="literal">false</span>;</span><br><span class="line">      &#125;, <span class="number">1600</span>);</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<p><strong>效果图</strong><br><em>主页面</em></p>
+<div  align="center">
+<img src="/assets/img/map.png " width = 250 height =450  />
+</div >
+*失物招领栏*
+<div  align="center">
+<img src="/assets/img/栏.png " width = 250 height =450  />
+</div >
+*我的*
+<div  align="center">
+<img src="/assets/img/d我的.png " width = 250 height =450  />
+</div >
+*地区详情页*
+<div  align="center">
+<img src="/assets/img/ddetail.png " width = 250 height =450  />
+</div >
+*物品信息页*
+<div  align="center">
+<img src="/assets/img/物品信息.png " width = 250 height =450  />
+</div >
+## 服务端
+后台服务由nodejs编写采用express框架，前后端用axios进行数据请求传输，数据库采用Mysql，大致为接受请求&rarr;查询数据库&rarr;返回结果
+#### 连接数据库
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">"mysql"</span>);</span><br><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">"jsonwebtoken"</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  con: mysql.createConnection(&#123;</span><br><span class="line">    host: <span class="string">"localhost"</span>,</span><br><span class="line">    port: <span class="string">"3306"</span>,</span><br><span class="line">    user: <span class="string">"root"</span>,</span><br><span class="line">    password: <span class="string">"1234"</span>,</span><br><span class="line">    database: <span class="string">"dlement"</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  sqlConnect: <span class="function">(<span class="params">con</span>) =&gt;</span> &#123;</span><br><span class="line">    con.connect(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//连接失败</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+#### 监听前端请求
+绑定监听端口
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.listen(<span class="string">"5555"</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"http://localhost:5555"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+使用app.use绑定各Url，接受请求并查询数据库返回结果
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">"/web/api"</span>, router);</span><br><span class="line">router.post(<span class="string">"/searchLost/:search"</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  sql.searchArt(sql.con, <span class="string">"lost"</span>, req.params.search, (data) =&gt; &#123;</span><br><span class="line">    res.send(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+文件上传-图片信息上传，用multer将图片信息存入项目的uploads文件中返回url，然后将url存入数据库中
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> multer = <span class="built_in">require</span>(<span class="string">"multer"</span>);</span><br><span class="line">  <span class="keyword">const</span> upload = multer(&#123; <span class="attr">dest</span>: __dirname + <span class="string">"/../../uploads"</span> &#125;);</span><br><span class="line">  app.post(<span class="string">"/web/api/upload"</span>, upload.single(<span class="string">"file"</span>), <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> file = req.file;</span><br><span class="line">    file.url = <span class="string">`http://****/uploads/<span class="subst">$&#123;file.filename&#125;</span>`</span>;</span><br><span class="line">    res.send(file);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+用户密码加密-避免信息泄露
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">"crypto"</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; fstat &#125; = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jiami</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//需要加密的字符串</span></span><br><span class="line">  <span class="keyword">let</span> password = str + <span class="string">"******"</span>;</span><br><span class="line">  <span class="comment">//使用加密算法</span></span><br><span class="line">  <span class="keyword">let</span> sf = crypto.createHash(<span class="string">"md5"</span>);</span><br><span class="line">  <span class="comment">//对字符串进行加密</span></span><br><span class="line">  sf.update(password);</span><br><span class="line">  <span class="comment">//加密的二进制数据以字符串的形式保存</span></span><br><span class="line">  <span class="keyword">let</span> content = sf.digest(<span class="string">"hex"</span>);</span><br><span class="line">  <span class="keyword">return</span> content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+## 项目总结
+该项目是我第一个独立全栈开发的项目，从中收获良多，虽实现了失物招领的全部功能，但有许多还有待优化，目前云服务部署也仍存在问题。路途迷长，继续加油。
+<div  align="center">
+<img src="/assets/img/fight.jpg " width = 250 height =250  />
+</div >
+
+
+
+
+
+
+
+
+
+
       
 
       
@@ -218,7 +304,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Vue Node.js Mysql</a>
         		</li>
       		
 		</ul>
@@ -417,6 +503,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Vue Node.js Mysql</a>
               </li>
             
             <div class="clearfix"></div>
